@@ -1,0 +1,58 @@
+<!-- Fenêtre principale de gestion des habilitations -->
+<div class="authorization-window" role="main">
+  
+  <!-- Header principal -->
+  <app-header 
+    title="Gestion des permissions et habilitations"
+    buttonLabel="Fermer"
+    buttonIcon="pi pi-times"
+    tooltipText="Fermer la fenêtre"
+    (closeWindow)="onCloseWindow()">
+  </app-header>
+
+  <!-- Contenu principal -->
+  <div class="authorization-content">
+    
+    @if (!shouldShowManagement) {
+      <!-- Phase de recherche -->
+      <div class="search-phase">
+        <div class="search-container">
+          <app-manager-search 
+            (managerSelected)="onManagerSelected($event)">
+          </app-manager-search>
+        </div>
+      </div>
+    }
+    
+    @else {
+      <!-- Phase de gestion des autorisations -->
+      <div class="management-phase">
+        <div class="management-container">
+          
+          <!-- Bouton de retour -->
+          <div class="back-navigation">
+            <p-button
+              variant="outlined"
+              icon="pi pi-arrow-left"
+              label="Retour à la liste des gestionnaires"
+              class="back-button"
+              (click)="onBackToSearch()"
+              [ariaLabel]="'Retourner à la liste des gestionnaires'"
+            ></p-button>
+          </div>
+          
+          <!-- Composant de gestion -->
+          <app-authorization-management 
+            [manager]="currentManager!">
+          </app-authorization-management>
+          
+        </div>
+      </div>
+    }
+    
+  </div>
+
+  <!-- Toast et ConfirmDialog globaux -->
+  <p-toast position="top-right"></p-toast>
+  <p-confirmdialog />
+</div>

@@ -1,0 +1,126 @@
+.app-header {
+  padding: 2rem 2rem 1.5rem 2rem;
+  background: linear-gradient(135deg, var(--p-primary-500) 0%, var(--p-primary-600) 100%);
+  width: 100%;
+  position: relative;
+}
+
+/* Effet de brillance subtile */
+.app-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+}
+
+/* Assurer que le composant host prend toute la largeur */
+:host {
+  display: block;
+  width: 100%;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+}
+
+.header-icon {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.5rem;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.title-text {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  letter-spacing: -0.025em;
+}
+
+.close-button {
+  flex: 0 0 auto;
+  gap: 0.5rem;
+}
+
+/* Style du bouton - override via styleClass */
+::ng-deep .header-close-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+/* État hover */
+::ng-deep .header-close-btn:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* État active */
+::ng-deep .header-close-btn:active {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Styles des icônes et texte */
+::ng-deep .header-close-btn .p-button-icon {
+  color: white !important;
+}
+
+::ng-deep .header-close-btn .p-button-label {
+  color: white !important;
+  font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 1.5rem 1.5rem 1.25rem 1.5rem;
+  }
+  
+  .title-text {
+    font-size: 1.25rem;
+  }
+  
+  .header-icon {
+    font-size: 1.25rem;
+  }
+  
+  /* Sur mobile, ne garder que l'icône pour économiser l'espace */
+  ::ng-deep .header-close-btn .p-button-label {
+    display: none !important;
+  }
+}
+
+/* Animation d'entrée */
+.app-header {
+  animation: slideInDown 0.4s ease-out;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

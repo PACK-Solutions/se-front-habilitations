@@ -1,0 +1,26 @@
+<!-- En-tête avec informations du gestionnaire -->
+<div class="manager-header">
+  <div class="manager-info">
+    <!-- Avatar à gauche -->
+    <div class="manager-avatar">
+      <i class="pi pi-user manager-icon" aria-hidden="true"></i>
+    </div>
+    
+    <!-- Informations à droite -->
+    <div class="manager-text-info">
+      <h3 class="manager-title">
+        {{ authService.formatManagerName(manager()) }}
+      </h3>
+      <div class="manager-details">
+        <span class="manager-detail"> 
+          <i class="pi pi-id-card detail-icon" aria-hidden="true"></i>
+          {{ manager().seIdentifier }}
+        </span>
+        <span class="manager-detail"> 
+          <i class="pi pi-at detail-icon" aria-hidden="true"></i>
+          {{ manager().email }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

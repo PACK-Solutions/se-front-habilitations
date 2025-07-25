@@ -1,0 +1,495 @@
+/* Liste des gestionnaires */
+.managers-list {
+  background: var(--p-surface-0);
+  border: 1px solid var(--p-surface-border);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.list-header {
+  background: linear-gradient(135deg, var(--p-primary-50) 0%, var(--p-primary-100) 100%);
+  border-bottom: 1px solid var(--p-primary-200);
+  padding: 1.25rem 2rem;
+  position: relative;
+}
+
+/* Effet de brillance subtile sur l'en-tête de la liste */
+.list-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--p-primary-400) 50%, transparent 100%);
+  opacity: 0.7;
+}
+
+.list-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--p-primary-700);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.list-icon {
+  color: var(--p-primary-600);
+  font-size: 1.25rem;
+}
+
+.loading-results {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  color: var(--p-text-color-secondary);
+}
+
+.loading-text {
+  font-size: 0.9rem;
+}
+
+/* Vue desktop (table) */
+.desktop-view {
+  display: block;
+}
+
+.mobile-view {
+  display: none;
+}
+
+/* Styles pour le tableau PrimeNG */
+::ng-deep .managers-list .p-datatable {
+  border: none;
+  border-radius: 0 0 16px 16px;
+  overflow: hidden;
+  margin: 0;
+}
+
+::ng-deep .managers-list .p-datatable .p-datatable-header {
+  background: var(--p-surface-0);
+  border-bottom: 2px solid var(--p-surface-100);
+  padding: 0;
+}
+
+::ng-deep .managers-list .p-datatable .p-datatable-thead > tr > th {
+  background: var(--p-surface-50);
+  color: var(--p-text-color);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid var(--p-surface-border);
+  border-right: 1px solid var(--p-surface-100);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  position: relative;
+}
+
+::ng-deep .managers-list .p-datatable .p-datatable-thead > tr > th:last-child {
+  border-right: none;
+}
+
+::ng-deep .managers-list .p-datatable .p-datatable-thead > tr > th .p-sortable-column-icon {
+  color: var(--p-primary-color);
+  margin-left: 0.5rem;
+}
+
+::ng-deep .managers-list .p-datatable .p-datatable-thead > tr > th:hover {
+  background: var(--p-surface-100);
+  cursor: pointer;
+}
+
+::ng-deep .managers-list .p-datatable .p-datatable-tbody > tr {
+  background: var(--p-surface-0);
+  transition: all 0.2s ease;
+  border-bottom: 1px solid var(--p-surface-100);
+}
+
+::ng-deep .managers-list .p-datatable .p-datatable-tbody > tr:nth-child(even) {
+  background: var(--p-surface-25);
+}
+
+::ng-deep .managers-list .p-datatable .p-datatable-tbody > tr:hover {
+  background: var(--p-primary-50) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+::ng-deep .managers-list .p-datatable .p-datatable-tbody > tr > td {
+  padding: 1.25rem 1.25rem;
+  border-right: 1px solid var(--p-surface-50);
+  border-bottom: none;
+  vertical-align: middle;
+  font-size: 0.9rem;
+}
+
+::ng-deep .managers-list .p-datatable .p-datatable-tbody > tr > td:last-child {
+  border-right: none;
+}
+
+.manager-row {
+  cursor: pointer;
+}
+
+.manager-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+}
+
+.manager-icon {
+  color: var(--p-primary-color);
+  font-size: 1rem;
+  padding: 0.375rem;
+  background: var(--p-primary-50);
+  border-radius: 50%;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.manager-login {
+  font-weight: 500;
+  font-size: 0.9rem;
+  font-family: monospace;
+  background: var(--p-surface-100);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.manager-email {
+  color: var(--p-text-color);
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+/* Pagination améliorée */
+::ng-deep .managers-list .p-paginator {
+  background: var(--p-surface-0);
+  border: none;
+  border-top: 2px solid var(--p-surface-100);
+  padding: 1rem 1.25rem;
+  border-radius: 0 0 16px 16px;
+}
+
+::ng-deep .managers-list .p-paginator .p-paginator-pages .p-paginator-page {
+  border-radius: 8px;
+  margin: 0 0.125rem;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+::ng-deep .managers-list .p-paginator .p-paginator-pages .p-paginator-page:hover {
+  background: var(--p-primary-50);
+  color: var(--p-primary-600);
+}
+
+::ng-deep .managers-list .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: var(--p-primary-color);
+  border-color: var(--p-primary-color);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+::ng-deep .managers-list .p-paginator .p-paginator-first,
+::ng-deep .managers-list .p-paginator .p-paginator-prev,
+::ng-deep .managers-list .p-paginator .p-paginator-next,
+::ng-deep .managers-list .p-paginator .p-paginator-last {
+  border-radius: 8px;
+  margin: 0 0.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  transition: all 0.2s ease;
+}
+
+::ng-deep .managers-list .p-paginator .p-paginator-first:hover,
+::ng-deep .managers-list .p-paginator .p-paginator-prev:hover,
+::ng-deep .managers-list .p-paginator .p-paginator-next:hover,
+::ng-deep .managers-list .p-paginator .p-paginator-last:hover {
+  background: var(--p-primary-50);
+  color: var(--p-primary-600);
+}
+
+::ng-deep .managers-list .p-paginator .p-dropdown {
+  border-radius: 8px;
+  border: 2px solid var(--p-surface-border);
+  background: var(--p-surface-0);
+  margin-left: 0.5rem;
+}
+
+::ng-deep .managers-list .p-paginator .p-dropdown:hover {
+  border-color: var(--p-primary-color);
+}
+
+::ng-deep .managers-list .p-paginator .p-paginator-current {
+  font-weight: 500;
+  color: var(--p-text-color-secondary);
+  font-size: 0.875rem;
+}
+
+/* Styles pour les cartes mobiles */
+.managers-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 2rem 2rem 2rem;
+}
+
+.manager-card {
+  background: var(--p-surface-0);
+  border: 2px solid var(--p-surface-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.manager-card:hover {
+  border-color: var(--p-primary-300);
+  background: var(--p-primary-25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.manager-card:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.manager-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--p-primary-100), var(--p-primary-200));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--p-primary-600);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  border: 2px solid var(--p-primary-300);
+}
+
+.manager-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.manager-name {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--p-text-color);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  color: var(--p-text-color-secondary);
+  transition: all 0.2s ease;
+}
+
+.card-actions i {
+  font-size: 1.125rem;
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+.detail-icon {
+  color: var(--p-text-color-secondary);
+  font-size: 0.9rem;
+  width: 1.25rem;
+  flex-shrink: 0;
+}
+
+.detail-label {
+  color: var(--p-text-color-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  min-width: 80px;
+}
+
+.detail-value {
+  color: var(--p-text-color);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.mobile-pagination {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 2rem 2rem 2rem;
+}
+
+/* Message vide */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 2rem;
+  gap: 1rem;
+  background: var(--p-surface-50);
+  border: 1px solid var(--p-surface-border);
+  border-radius: 12px;
+  margin: 0 2rem 2rem 2rem;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  color: var(--p-text-color-secondary);
+  opacity: 0.6;
+}
+
+.empty-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--p-text-color);
+  margin: 0;
+}
+
+.empty-message {
+  font-size: 0.9rem;
+  color: var(--p-text-color-secondary);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 300px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  /* Basculer vers l'affichage mobile */
+  .desktop-view {
+    display: none !important;
+  }
+  
+  .mobile-view {
+    display: block !important;
+  }
+  
+  /* Ajustements pour les cartes mobile */
+  .manager-card {
+    padding: 1rem;
+  }
+  
+  .card-header {
+    margin-bottom: 0.75rem;
+    gap: 0.875rem;
+  }
+  
+  .manager-avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 1.125rem;
+  }
+  
+  .manager-name {
+    font-size: 1rem;
+  }
+  
+  .managers-grid,
+  .empty-state,
+  .mobile-pagination {
+    margin: 0 1.5rem 1.5rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Garder l'affichage mobile */
+  .desktop-view {
+    display: none !important;
+  }
+  
+  .mobile-view {
+    display: block !important;
+  }
+  
+  /* Cartes mobiles plus compactes */
+  .manager-card {
+    padding: 0.875rem;
+  }
+  
+  .card-header {
+    margin-bottom: 0.625rem;
+    gap: 0.75rem;
+  }
+  
+  .manager-avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+  
+  .manager-name {
+    font-size: 0.95rem;
+  }
+  
+  .detail-row {
+    padding: 0.375rem 0;
+    gap: 0.625rem;
+  }
+  
+  .detail-label {
+    min-width: 70px;
+    font-size: 0.8rem;
+  }
+  
+  .detail-value {
+    font-size: 0.8rem;
+  }
+  
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+  
+  .empty-icon {
+    font-size: 2rem;
+  }
+  
+  .empty-title {
+    font-size: 1rem;
+  }
+  
+  .managers-grid,
+  .empty-state,
+  .mobile-pagination {
+    margin: 0 1rem 1rem 1rem;
+  }
+}

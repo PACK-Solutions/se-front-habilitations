@@ -1,0 +1,158 @@
+<!-- Composant de recherche de gestionnaire -->
+<div class="manager-search">
+  
+  @if (!isGroupsViewActive()) {
+    <!-- Vue recherche de gestionnaires -->
+    
+    <!-- En-tête de recherche -->
+    <app-manager-search-header
+      [searchInputValue]="searchInputValue"
+      [suggestions]="suggestions()"
+      [isLoading]="isLoading()"
+      (completeMethod)="onSuggest($event)"
+      (selectFromSuggestion)="onSelectFromSuggestion($event)"
+      (inputChange)="onInputChange()"
+      (clearSearch)="onClearSearch()"
+    ></app-manager-search-header>
+    
+    <!-- Bouton gestion des groupes -->
+    <div class="groups-management-header">
+      <p-button
+        label="Gestion des groupes"
+        icon="pi pi-users"
+        severity="secondary"
+        [outlined]="true"
+        (click)="onShowGroupsView()"
+        class="groups-button"
+      ></p-button>
+    </div>
+    
+    <!-- Liste des gestionnaires -->
+    <app-manager-list
+      [filteredManagers]="filteredManagers()"
+      [isLoading]="isLoading()"
+      [searchTerm]="searchTerm()"
+      [shouldShowResults]="shouldShowResults"
+      [mobileFirst]="mobileFirst()"
+      [mobileRows]="mobileRows()"
+      (rowSelect)="onRowSelectHandler($event)"
+      (selectManager)="onSelectManager($event)"
+      (pageChange)="onMobilePageChange($event)"
+    ></app-manager-list>
+  } @else {
+    <!-- Vue gestion des groupes -->
+    <div class="groups-view">
+      
+      <!-- Bouton de retour -->
+      <div class="back-navigation">
+        <p-button
+          variant="outlined"
+          icon="pi pi-arrow-left"
+          label="Retour à la liste des gestionnaires"
+          class="back-button"
+          (click)="onBackToSearch()"
+          [ariaLabel]="'Retourner à la liste des gestionnaires'"
+        ></p-button>
+      </div>
+      
+      <!-- En-tête avec bouton retour -->
+      <div class="groups-header">
+        <div class="groups-title-section">
+          <div class="groups-avatar">
+            <i class="pi pi-users groups-main-icon" aria-hidden="true"></i>
+          </div>
+          <div class="groups-text-info">
+            <h3 class="groups-main-title">
+              Gestion des groupes d'habilitation
+            </h3>
+            <p class="groups-description">
+              Configurez les profils d'habilitation et leurs montants limites
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Liste des groupes -->
+      <div class="groups-list">
+        
+        <!-- Affichage dynamique de tous les groupes -->
+        @for (profile of allProfiles(); track profile.id) {
+          <div class="group-card">
+            <div class="group-info">
+              <p-tag 
+                [value]="profile.name"
+                [severity]="getProfileSeverity(profile)"
+                [rounded]="true"
+                class="group-tag"
+              ></p-tag>
+              
+              @if (isProfileConfigurable(profile)) {
+                <div class="group-amount-config">
+                  <label [for]="profile.id + '-amount'" class="amount-label">Saisie jusqu'à :</label>
+                  @if (getProfileInputType(profile) === 'intermediate') {
+                    <input
+                      type="text"
+                      pInputText
+                      [id]="profile.id + '-amount'"
+                      name="intermediateAmount"
+                      [(ngModel)]="intermediateAmountValue"
+                      class="amount-input"
+                      placeholder="Montant maximum"
+                    />
+                  } @else if (getProfileInputType(profile) === 'intermediate_pero') {
+                    <input
+                      type="text"
+                      pInputText
+                      [id]="profile.id + '-amount'"
+                      name="intermediatePEROAmount"
+                      [(ngModel)]="intermediatePEROAmountValue"
+                      class="amount-input"
+                      placeholder="Montant maximum"
+                    />
+                  } @else if (getProfileInputType(profile) === 'advanced') {
+                    <input
+                      type="text"
+                      pInputText
+                      [id]="profile.id + '-amount'"
+                      name="advancedAmount"
+                      [(ngModel)]="advancedAmountValue"
+                      class="amount-input"
+                      placeholder="Montant maximum"
+                    />
+                  }
+                </div>
+              } @else {
+                <span class="group-description">{{ formatProfileDescription(profile) }}</span>
+              }
+            </div>
+          </div>
+        }
+        
+      </div>
+      
+      <!-- Actions de sauvegarde -->
+      <div class="groups-actions">
+        <p-button
+          label="Enregistrer les modifications"
+          icon="pi pi-save"
+          severity="success"
+          (click)="onSaveGroupChanges()"
+          [disabled]="!canSave()"
+          [loading]="isLoadingSave()"
+          class="save-button"
+        ></p-button>
+        
+        <p-button
+          label="Annuler"
+          icon="pi pi-times"
+          severity="secondary"
+          [outlined]="true"
+          (click)="onCancelGroupChanges()"
+          [disabled]="!hasUnsavedChanges() || isLoadingSave()"
+          class="cancel-button"
+        ></p-button>
+      </div>
+    </div>
+  }
+  
+</div>

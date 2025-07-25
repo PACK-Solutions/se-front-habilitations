@@ -1,0 +1,53 @@
+<!-- Gestion des autorisations pour le gestionnaire sélectionné -->
+<div class="authorization-management">
+  
+  <!-- En-tête avec informations du gestionnaire -->
+  <app-manager-details-header 
+    [manager]="manager()">
+  </app-manager-details-header>
+
+  <!-- Bloc principal : Habilitations du domaine prestations -->
+  <div class="domain-block">
+    <div class="domain-header">
+      <h2 class="domain-title">
+        <i class="pi pi-briefcase domain-icon" aria-hidden="true"></i>
+        Gestion des groupes d'habilitation
+      </h2>
+    </div>
+
+    <!-- Layout principal : formulaire à gauche, autorisations à droite -->
+    <div class="main-content">
+      <!-- Colonne gauche : Sélection des groupes -->
+      <div class="create-section">
+        <h4 class="section-title">
+          <i class="pi pi-user section-icon" aria-hidden="true"></i>
+          Affecter un groupe
+        </h4>
+        
+        <app-authorization-creation-form
+          [availableProfiles]="availableProfiles()"
+          [isLoading]="isLoading()"
+          [hasExplicitAuthorizations]="hasExplicitAuthorizations()"
+          [currentAuthorizations]="effectiveAuthorizations()"
+          (createAuthorizationRequest)="onCreateAuthorization($event)">
+        </app-authorization-creation-form>
+      </div>
+
+      <!-- Colonne droite : Groupes actuels -->
+      <div class="authorizations-section">
+        <h4 class="section-title">
+          <i class="pi pi-shield section-icon" aria-hidden="true"></i>
+          Groupe actuel
+        </h4>
+        
+        <app-authorization-list-display
+          [groupedAuthorizations]="groupedAuthorizations()"
+          [effectiveAuthorizations]="effectiveAuthorizations()"
+          [isLoading]="isLoading()"
+          [hasExplicitAuthorizations]="hasExplicitAuthorizations()"
+          (deleteProfileHabilitations)="onDeleteProfileHabilitations($event)">
+        </app-authorization-list-display>
+      </div>
+    </div>
+  </div>
+</div>

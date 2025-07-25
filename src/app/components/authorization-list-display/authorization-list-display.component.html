@@ -1,0 +1,60 @@
+<!-- Affichage des autorisations existantes -->
+@if (effectiveAuthorizations().length > 0) {
+  @if (groupedAuthorizations().length > 0) {
+    <!-- Afficher tous les groupes -->
+    @for (profileGroup of groupedAuthorizations(); track profileGroup.profile.id) {
+      <div class="profile-group-card">
+        <div class="profile-header">
+          <div class="profile-info">
+            <p-tag 
+              [value]="profileGroup.profile.name"
+              [severity]="profileGroup.isDefault ? 'info' : getProfileSeverity(profileGroup.profile)"
+              [rounded]="true"
+              class="profile-tag"
+            ></p-tag>
+            <span class="profile-description">{{ formatProfileDescription(profileGroup.profile) }}</span>
+            @if (profileGroup.isDefault) {
+              <span class="default-badge">Par défaut</span>
+            } @else if (profileGroup.profile.id === 'prof_consultation') {
+              <span class="default-badge">Non modifiable</span>
+            }
+          </div>
+          
+          @if (!profileGroup.isDefault && profileGroup.profile.id !== 'prof_consultation') {
+            <div class="profile-actions">
+              <p-button
+                icon="pi pi-trash"
+                severity="danger"
+                [text]="true"
+                [rounded]="true"
+                size="small"
+                [pTooltip]="'Supprimer ce groupe'"
+                tooltipPosition="top"
+                (onClick)="onDeleteProfileHabilitations(profileGroup.profile.id, profileGroup.profile.name)"
+                [ariaLabel]="'Supprimer le groupe ' + profileGroup.profile.name"
+              ></p-button>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  } @else {
+    <!-- Aucun profil groupé -->
+    <div class="default-explanation">
+      <i class="pi pi-info-circle default-icon" aria-hidden="true"></i>
+      <h4 class="default-title">Aucun groupe configuré</h4>
+      <p class="default-message">
+        Ce gestionnaire n'a aucun groupe d'habilitation configuré.
+      </p>
+    </div>
+  }
+} @else {
+  <!-- Aucune autorisation effective -->
+  <div class="default-explanation">
+    <i class="pi pi-info-circle default-icon" aria-hidden="true"></i>
+    <h4 class="default-title">Aucune autorisation</h4>
+    <p class="default-message">
+      Aucune autorisation n'est configurée pour ce gestionnaire.
+    </p>
+  </div>
+}

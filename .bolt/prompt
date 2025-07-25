@@ -1,0 +1,131 @@
+Gestion d’état
+✅ Utiliser :
+
+signal()
+
+computed()
+
+model() (formulaire / liaison bidirectionnelle)
+
+linked() / linkedSignal() (liaison composant ↔ service/store)
+
+❌ Éviter :
+
+BehaviorSubject, ReplaySubject
+
+manual subscribe() dans les composants
+
+💉 Injection de dépendance
+✅ Préférer :
+
+inject(MyService) dans le corps du composant
+
+InjectionToken pour la config et les services personnalisables
+
+@Optional() + fallback
+
+❌ Éviter :
+
+constructor(private svc: Svc) sauf cas de classe externe
+
+new MyService() ou toute instanciation manuelle
+
+🧱 Syntaxe template
+✅ Utiliser :
+
+@if, @for, @switch (nouveaux blocs de contrôle)
+
+@defer pour lazy loading
+
+InputSignal<T> pour les @Input() réactifs
+
+❌ Éviter :
+
+*ngIf, *ngFor, *ngSwitch
+
+| async pipe dans les templates basés sur signal()
+
+🧩 Composants standalone
+✅ Tous les composants doivent être :
+
+standalone: true
+
+Avec ChangeDetectionStrategy.OnPush
+
+Avec imports: [...] explicite dans le décorateur
+
+🌐 Routing moderne
+✅ Utiliser :
+
+provideRouter() dans main.ts
+
+loadComponent() pour charger dynamiquement des composants
+
+Routes définies avec des composants standalone
+
+❌ Éviter :
+
+AppRoutingModule
+
+NgModule pour le routage
+
+🔗 HTTP client
+✅ Utiliser :
+
+provideHttpClient()
+
+❌ Éviter :
+
+HttpClientModule
+
+📡 RxJS
+✅ À utiliser uniquement si nécessaire (polling, WebSocket, etc.)
+
+✅ Convertir en signal() avec toSignal() si besoin dans les templates
+
+🧪 Testing
+✅ Utiliser :
+
+render(MyComponent) avec @angular/testing
+
+computed() ou watch() pour tester des signaux
+
+♿ Accessibilité
+✅ Vérifier :
+
+Sémantique HTML (<button>, <a>, <input>)
+
+role, aria-*, tabindex bien définis
+
+❌ Ne pas utiliser :
+
+Composants personnalisés sans fallback natif
+
+🎨 CSS & thématisation
+✅ Utiliser :
+
+Sélecteurs natifs (button, input, etc.)
+
+Tokens CSS (HSLA / OKLCH)
+
+Design system basé sur CSS variables
+
+❌ Éviter :
+
+.btn, .input, sauf si élément natif indisponible
+
+⚙️ Performances
+✅ Désactiver zone.js :
+
+provideZoneChangeDetection({ eventCoalescing: true })
+
+✅ Utiliser ChangeDetectorRef si MAJ manuelle nécessaire
+
+✅ Privilégier les Signals aux subscriptions
+
+🧠 Autres bonnes pratiques
+✅ Utiliser :
+
+ViewTransitions pour animations natives
+
+model() pour les formulaires

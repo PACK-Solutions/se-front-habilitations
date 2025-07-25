@@ -1,0 +1,15 @@
+/* Styles globaux pour l'application de gestion des habilitations */
+:host {
+  display: block;
+  min-height: 100vh;
+  background: var(--p-surface-50);
+}
+
+/* Variables CSS personnalisées pour le thème des habilitations */
+:root {
+  --authorization-primary: #2563eb;
+  --authorization-success: #16a34a;
+  --authorization-warning: #ea580c;
+  --authorization-danger: #dc2626;
+  --authorization-info: #0891b2;
+}

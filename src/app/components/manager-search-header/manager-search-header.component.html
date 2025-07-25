@@ -1,0 +1,50 @@
+<!-- En-tête de recherche avec input intégré -->
+<div class="search-header">
+  <div class="search-header-content">
+    <div class="search-avatar">
+      <i class="pi pi-users search-main-icon" aria-hidden="true"></i>
+    </div>
+    <div class="search-text-info">
+      <h3 class="search-main-title">
+        Rechercher un(e) gestionnaire
+      </h3>
+      <p class="search-description">
+        Trouvez un gestionnaire par nom, prénom, identifiant ou email pour gérer ses habilitations
+      </p>
+      
+      <!-- Input de recherche intégré -->
+      <div class="integrated-search-input">
+        <p-autoComplete
+          [(ngModel)]="searchValue"
+          [suggestions]="suggestions()"
+          (completeMethod)="onSuggest($event)"
+          (onSelect)="onSelectFromSuggestion($event)"
+          (input)="onInputChange()"
+          placeholder="Nom, prénom, email, login..."
+          [disabled]="isLoading()"
+          [multiple]="false"
+          [minLength]="2"
+          styleClass="search-autocomplete"
+          [fluid]="true"
+          [dropdown]="true"
+          [dropdownIcon]="'pi pi-search'"
+          [showClear]="true"
+        >
+          <ng-template pTemplate="item" let-manager>
+            <div class="suggestion-item">
+              <div class="suggestion-name">{{ authService.formatManagerName(manager) }}</div>
+              <div class="suggestion-details">
+                <span class="suggestion-login">{{ manager.login }}</span>
+                <span class="suggestion-email">{{ manager.email }}</span>
+              </div>
+            </div>
+          </ng-template>
+          
+          <ng-template pTemplate="selectedItem" let-manager>
+            <span>{{ authService.formatManagerName(manager) }}</span>
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+  </div>
+</div>

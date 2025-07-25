@@ -1,0 +1,24 @@
+<header class="app-header" role="banner">
+  <div class="header-content">
+    <div class="header-title">
+      <i class="pi pi-briefcase header-icon" aria-hidden="true"></i>
+      <h1 class="title-text">{{ title() }}</h1>
+    </div>
+    
+    @if (showButton()) {
+      <p-button 
+        [label]="buttonLabel()"
+        [icon]="buttonIcon()" 
+        (onClick)="onClose()"
+        [text]="true"
+        [rounded]="false"
+        severity="secondary"
+        styleClass="header-close-btn"
+        [pTooltip]="tooltipText()"
+        tooltipPosition="bottom"
+        [ariaLabel]="tooltipText()"
+        [attr.aria-label]="tooltipText()">
+      </p-button>
+    }
+  </div>
+</header>

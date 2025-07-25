@@ -1,0 +1,201 @@
+/* Styles pour l'interface de gestion des habilitations */
+
+/* Conteneur principal */
+.authorization-window {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--p-surface-0);
+  border: 1px solid var(--p-surface-border);
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Contenu principal */
+.authorization-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--p-surface-50);
+  overflow: auto;
+}
+
+/* Phase de recherche */
+.search-phase {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 60vh;
+}
+
+.search-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.search-header {
+  text-align: center;
+}
+
+.search-main-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--p-text-color);
+}
+
+.search-description {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--p-text-color-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Phase de gestion */
+.management-phase {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 2rem;
+}
+
+.management-container {
+  width: 100%;
+  max-width: 1600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.back-navigation {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--p-surface-border);
+  margin-bottom: 0.75rem;
+}
+
+.back-button {
+  /* Laisser PrimeNG gérer le thème par défaut */
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .management-container {
+    max-width: 100%;
+  }
+  
+  .search-container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .authorization-content {
+    padding: 0;
+  }
+  
+  .search-phase,
+  .management-phase {
+    padding: 1.5rem;
+  }
+  
+  .search-header {
+    padding: 1.5rem 0;
+  }
+  
+  .search-main-title {
+    font-size: 1.5rem;
+  }
+  
+  .search-description {
+    font-size: 1rem;
+  }
+  
+  .management-container {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-phase,
+  .management-phase {
+    padding: 1rem;
+  }
+  
+  .search-header {
+    padding: 1rem 0;
+  }
+  
+  .search-main-title {
+    font-size: 1.375rem;
+  }
+  
+  .search-description {
+    font-size: 0.95rem;
+  }
+  
+  .management-container {
+    gap: 1rem;
+  }
+}
+
+/* Animation d'ouverture */
+.authorization-window {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animations de transition entre phases */
+.search-phase,
+.management-phase {
+  animation: slideInFade 0.5s ease-out;
+}
+
+@keyframes slideInFade {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Styles pour améliorer l'accessibilité */
+.authorization-window:focus-within {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--p-primary-color);
+  color: var(--p-primary-contrast-color);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 6px;
+}

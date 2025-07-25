@@ -1,0 +1,54 @@
+<!-- Formulaire de création d'autorisation par groupes -->
+<div class="create-form">
+  <div class="form-field">
+    <label class="field-label">Groupes d'habilitation à affecter</label>
+    <div class="profiles-checkboxes">
+      @for (profile of availableProfilesComputed(); track profile.id) {
+        <div class="checkbox-item" [class.selected]="isProfileSelected(profile)">
+          <p-checkbox
+            [inputId]="'profile_' + profile.id"
+            [binary]="true"
+            [(ngModel)]="selectedProfilesMap()[profile.id]"
+            (onChange)="onProfileSelectionChange(profile, $event)"
+            [disabled]="isLoading()"
+          ></p-checkbox>
+          <label 
+            [for]="'profile_' + profile.id" 
+            class="checkbox-label"
+            (click)="toggleProfile(profile)"
+          >
+            <div class="profile-header-info">
+              <p-tag 
+                [value]="profile.name"
+                [severity]="getProfileSeverity(profile)"
+                [rounded]="true"
+                class="profile-tag"
+              ></p-tag>
+            </div>
+            <div class="profile-desc">{{ formatProfileDescription(profile) }}</div>
+          </label>
+        </div>
+      }
+    </div>
+  </div>
+  
+  <div class="form-actions">
+    <p-button 
+      [label]="selectedProfiles().length > 1 ? 'Affecter les groupes' : 'Affecter le groupe'"
+      icon="pi pi-user"
+      (click)="onCreateAuthorization()"
+      [disabled]="!canCreateAuthorization()"
+      [loading]="isLoading()"
+      class="create-button"
+    ></p-button>
+  </div>
+</div>
+
+@if (!hasExplicitAuthorizations()) {
+  <div class="default-info">
+    <i class="pi pi-info-circle default-icon" aria-hidden="true"></i>
+    <div class="default-text">
+      <strong>Statut par défaut :</strong> Ce gestionnaire a le groupe <strong>"Consultation"</strong> par défaut.
+    </div>
+  </div>
+}

@@ -1,0 +1,138 @@
+<!-- Liste des gestionnaires -->
+@if (shouldShowResults() || searchTerm().length === 0) {
+  <div class="managers-list" role="region" aria-live="polite">
+    <div class="list-header">
+      <h4 class="list-title">
+        <i class="pi pi-list list-icon" aria-hidden="true"></i>
+        Liste des gestionnaires
+      </h4>
+    </div>
+    
+    @if (isLoading()) {
+      <div class="loading-results">
+        <p-progressSpinner 
+          [style]="{width: '30px', height: '30px'}"
+          strokeWidth="4"
+          ariaLabel="Recherche en cours"
+        ></p-progressSpinner>
+        <span class="loading-text">Recherche en cours...</span>
+      </div>
+    }
+    
+    @else {
+      @if (filteredManagers().length > 0) {
+        <!-- Affichage table (desktop) -->
+        <div class="desktop-view">
+          <p-table 
+            [value]="filteredManagers()" 
+            [paginator]="true" 
+            [rows]="8"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} résultats"
+            [rowsPerPageOptions]="[5, 8, 15, 25]"
+            selectionMode="single"
+            (onRowSelect)="onRowSelectHandler($event)"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            styleClass="p-datatable-sm p-datatable-striped"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="firstName" style="width: 35%">
+                  Nom et prénom
+                  <p-sortIcon field="firstName"></p-sortIcon>
+                </th>
+                <th pSortableColumn="login" style="width: 25%">
+                  Identifiant/Login
+                  <p-sortIcon field="login"></p-sortIcon>
+                </th>
+                <th pSortableColumn="email" style="width: 40%">
+                  Email
+                  <p-sortIcon field="email"></p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
+            
+            <ng-template pTemplate="body" let-manager>
+              <tr [pSelectableRow]="manager" class="manager-row">
+                <td>
+                  <div class="manager-name-cell">
+                    <i class="pi pi-user manager-icon" aria-hidden="true"></i>
+                    <strong>{{ authService.formatManagerName(manager) }}</strong>
+                  </div>
+                </td>
+                <td>
+                  <span class="manager-login">{{ manager.login }}</span>
+                </td>
+                <td>
+                  <span class="manager-email">{{ manager.email }}</span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+        <!-- Affichage cartes (mobile/tablette) -->
+        <div class="mobile-view">
+          <div class="managers-grid">
+            @for (manager of paginatedMobileManagers(); track manager.id) {
+              <div class="manager-card" (click)="onSelectManager(manager)">
+                <div class="card-header">
+                  <div class="manager-avatar">
+                    <i class="pi pi-user" aria-hidden="true"></i>
+                  </div>
+                  <div class="manager-info">
+                    <h5 class="manager-name">{{ authService.formatManagerName(manager) }}</h5>
+                  </div>
+                  <div class="card-actions">
+                    <i class="pi pi-chevron-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+                
+                <div class="card-details">
+                  <div class="detail-row">
+                    <i class="pi pi-at detail-icon" aria-hidden="true"></i>
+                    <span class="detail-label">Email :</span>
+                    <span class="detail-value">{{ manager.email }}</span>
+                  </div>
+                  <div class="detail-row">
+                    <i class="pi pi-user detail-icon" aria-hidden="true"></i>
+                    <span class="detail-label">Login :</span>
+                    <span class="detail-value">{{ manager.login }}</span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+          
+          <!-- Pagination pour mobile -->
+          <div class="mobile-pagination">
+            <p-paginator 
+              [first]="mobileFirst()" 
+              [rows]="mobileRows()" 
+              [totalRecords]="filteredManagers().length"
+              [rowsPerPageOptions]="[5, 8, 15, 25]"
+              (onPageChange)="onMobilePageChange($event)">
+            </p-paginator>
+          </div>
+        </div>
+      } @else {
+        <!-- Aucun résultat -->
+        <div class="empty-state">
+          <i class="pi pi-search empty-icon" aria-hidden="true"></i>
+          @if (searchTerm().length > 0) {
+            <h4 class="empty-title">Aucun résultat trouvé</h4>
+            <p class="empty-message">
+              Aucun gestionnaire ne correspond à votre recherche "<strong>{{ searchTerm() }}</strong>".
+              Essayez avec d'autres termes.
+            </p>
+          } @else {
+            <h4 class="empty-title">Aucun gestionnaire</h4>
+            <p class="empty-message">
+              La liste des gestionnaires est vide.
+            </p>
+          }
+        </div>
+      }
+    }
+  </div>
+}
