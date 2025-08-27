@@ -4,6 +4,8 @@
 
 **SE-FRONT-HABILITATION** - Application Angular standalone moderne pour la gestion des habilitations des gestionnaires par fiscalité. Cette application permet aux administrateurs de rechercher des gestionnaires et de gérer leurs autorisations pour différentes fiscalités avec des niveaux de profils spécifiques.
 
+TEST BOLT**
+
 ## 🏗️ Architecture
 
 ### Structure du projet
